@@ -34,10 +34,11 @@ const CardPlanets = () => {
                         <>
                             {planets.map((item, index) => {
                                 return (
-                                    <div className="card-wrapper">
+                                    <div className="card-wrapper" key={item.uid}>
                                         <div className="card" style={{ width: "250px" }}>
                                             <img
-                                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Triple-star_sunset.jpg/250px-Triple-star_sunset.jpg"
+                                                src={`https://starwars-visualguide.com/assets/img/planets/${item.uid}.jpg`}
+                                                onError={(e) => { e.target.onerror = null; e.target.src = 'https://starwars-visualguide.com/assets/img/big-placeholder.jpg' }}
                                                 className="card-img-top"
                                                 alt="..."
                                             />

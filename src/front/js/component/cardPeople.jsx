@@ -35,10 +35,11 @@ const CardVehicle = () => {
                         <>
                             {people.map((item, index) => {
                                 return (
-                                    <div className="card-wrapper">
+                                    <div className="card-wrapper" key={item.uid}>
                                         <div className="card" style={{ width: "250px" }}>
                                             <img
-                                                src="https://http2.mlstatic.com/D_NQ_NP_819391-MLC44386416339_122020-O.jpg"
+                                                src={`https://starwars-visualguide.com/assets/img/characters/${item.uid}.jpg`}
+                                                onError={(e) => { e.target.onerror = null; e.target.src = 'https://starwars-visualguide.com/assets/img/big-placeholder.jpg' }}
                                                 className="card-img-top"
                                                 alt="..."
                                             />

@@ -36,10 +36,10 @@ const CardVehicle = () => {
                         <>
                             {vehicle.map((item, index) => {
                                 return (
-                                    <div className="card-wrapper">
+                                    <div className="card-wrapper" key={item.uid}>
                                         <div className="card" style={{ width: "250px" }}>
                                             <img
-                                                src="https://foxtwomodels.com/wp-content/uploads/2021/09/Snowspeeder_6_1-2048x1152.jpg"
+                                                src={`https://starwars-visualguide.com/assets/img/vehicles/${item.uid}.jpg`}
                                                 className="card-img-top"
                                                 alt="..."
                                             />

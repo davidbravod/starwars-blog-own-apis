@@ -16,7 +16,7 @@ const DetailedVehicle = () => {
         }
         cargaDatos()
 
-    }, [[params.uid]])
+    }, [params.uid])
 
     return (<>
         <div className="container">
@@ -25,7 +25,9 @@ const DetailedVehicle = () => {
                 <div className="card mb-3" style={{ width: "75%" }}>
                     <div className="row g-0">
                         <div className="col-md-4">
-                            <img src="https://foxtwomodels.com/wp-content/uploads/2021/09/Snowspeeder_6_1-2048x1152.jpg" className="img-fluid rounded-start" alt="..." />
+                            <img src={`https://starwars-visualguide.com/assets/img/vehicles/${params.uid}.jpg`}
+                                onError={(e) => { e.target.onerror = null; e.target.src = 'https://starwars-visualguide.com/assets/img/big-placeholder.jpg' }}
+                                className="img-fluid rounded-start" alt="..." />
                         </div>
                         <div className="col-md-8">
                             <div className="card-body">

@@ -16,7 +16,7 @@ const DetailedPlanets = () => {
         }
         cargaDatos()
 
-    }, [[params.uid]])
+    }, [params.uid])
 
     return (<>
         <div className="container">
@@ -25,7 +25,9 @@ const DetailedPlanets = () => {
                 <div className="card mb-3" style={{ width: "75%" }}>
                     <div className="row g-0">
                         <div className="col-md-4">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Triple-star_sunset.jpg/250px-Triple-star_sunset.jpg" className="img-fluid rounded-start" alt="..." />
+                            <img src={`https://starwars-visualguide.com/assets/img/planets/${params.uid}.jpg`}
+                                onError={(e) => { e.target.onerror = null; e.target.src = 'https://starwars-visualguide.com/assets/img/big-placeholder.jpg' }}
+                                className="img-fluid rounded-start" alt="..." />
                         </div>
                         <div className="col-md-8">
                             <div className="card-body">
