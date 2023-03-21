@@ -55,7 +55,10 @@ export const Navbar = () => {
                 <>
                   {favorites.map((item, index) => {
                     return (
-                      <li className="dropdown-item d-flex justify-content-between align-items-center">
+                      <li
+                        key={index}
+                        className="dropdown-item d-flex justify-content-between align-items-center"
+                      >
                         <Link to={item.url + item.uid} className="item-name">
                           <span className="item-name">{item.name}</span>
                         </Link>
