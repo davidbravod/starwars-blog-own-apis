@@ -12,6 +12,10 @@ import CardPeople from "./component/cardPeople.jsx";
 import DetailedPeople from "./component/detailedPeople.jsx";
 import DetailedVehicle from "./component/detailedVehicle.jsx";
 import DetailedPlanets from "./component/detailedPlanets.jsx";
+import Login from "./pages/login.jsx";
+import Register from "./pages/register.jsx";
+import UsersDetailedPeople from "./component/usersDetailedPeople.jsx";
+import AddPeople from "./pages/addPeople.jsx";
 
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
@@ -36,12 +40,17 @@ const Layout = () => {
             {/* <Route element={<Home />} path="/" /> */}
             <Route element={<Home />} path="/" />
             <Route element={<Demo />} path="/demo" />
+            <Route element={<Login />} path="/login" />
+            <Route element={<Register />} path="/register" />
+            <Route element={<AddPeople />} path="/add-people" />
+
             <Route
               element={<h1>EStoy en la vista de 4Geeks</h1>}
               path="/4geeks"
             />
             <Route element={<Single />} path="/single/:thetitle" />
             <Route element={<DetailedPeople />} path="/people/:uid" />
+            <Route element={<UsersDetailedPeople />} path="/userspeople/:id" />
             <Route element={<DetailedVehicle />} path="/vehicle/:uid" />
             <Route element={<DetailedPlanets />} path="/planets/:uid" />
             <Route element={<h1>Not found! 404</h1>} path="*" />

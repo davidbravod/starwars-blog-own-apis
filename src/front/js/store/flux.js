@@ -54,12 +54,17 @@ const getState = ({ getStore, getActions, setStore }) => {
       ...usuarioActions(getStore, getActions, setStore),
       ...todoActions(getStore, getActions, setStore),
       ...starWarsActions(getStore, getActions, setStore),
-      useFetch: async (endpoint, body, method = "GET") => {
-        let url = process.env.BACKEND_URL + endpoint;
+      useFetch: async (endpoint, body = "", method = "GET") => {
+        let url =
+          "https://3000-davidbravod-flaskrestst-qpqggfh1ay1.ws-us94.gitpod.io" +
+          endpoint;
         console.log(url);
         let response = await fetch(url, {
           method: method,
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
           body: body ? JSON.stringify(body) : null,
         });
 
@@ -71,7 +76,10 @@ const getState = ({ getStore, getActions, setStore }) => {
         let url = "https://www.swapi.tech/api" + endpoint;
         let response = await fetch(url, {
           method: method,
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
           body: null,
         });
 

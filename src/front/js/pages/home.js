@@ -6,16 +6,35 @@ import "../../styles/home.css";
 import CardPeople from "../component/cardPeople.jsx";
 import CardVehicle from "../component/cardVehicle.jsx";
 import CardPlanets from "../component/cardPlanets.jsx";
+import UsersPeople from "../component/usersPeople.jsx";
 
 export const Home = () => {
+  const { store, actions } = useContext(Context);
+
   return (
     <>
-      <h1 className="text-danger ms-5">Characters</h1>
-      <CardPeople />
-      <h1 className="text-danger ms-5">Vechicles</h1>
-      <CardVehicle />
-      <h1 className="text-danger ms-5">Planets</h1>
-      <CardPlanets />
+      {store.userLogin ? (
+        <>
+          <div className="d-flex">
+            <h1 className="text-danger ms-5">Characters</h1>
+            <Link to="/add-people">
+              <button type="button" className="btn btn-primary ms-3">
+                Add New Character
+              </button>
+            </Link>
+          </div>
+          <UsersPeople />
+        </>
+      ) : (
+        <>
+          <h1 className="text-danger ms-5">Characters</h1>
+          <CardPeople />
+          <h1 className="text-danger ms-5">Vechicles</h1>
+          <CardVehicle />
+          <h1 className="text-danger ms-5">Planets</h1>
+          <CardPlanets />
+        </>
+      )}
     </>
   );
 };

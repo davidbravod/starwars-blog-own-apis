@@ -4,12 +4,37 @@ import { Context } from "../store/appContext";
 
 export const Navbar = () => {
   const { store, actions } = useContext(Context);
-  const [favorites, setFavorites] = useState(store.starWarsFavorites);
+  const [favorites, setFavorites] = useState(store.userFavorites);
   const dropdownRef = useRef(null);
 
+  const getUserLink = (item) => {
+    let url = "";
+    switch (item.url) {
+      case "/people":
+        url = "/userspeople";
+        break;
+      case "/planets":
+        url = "/usersplanets";
+        break;
+      case "/vehicles":
+        url = "/usersvehicles";
+        break;
+      default:
+        url = item.url;
+        break;
+    }
+    return `${url}/${item.id}`;
+  };
+
+  const removeFavorite = (item) => {
+    if (item.url == "/people") {
+      actions.removePeopleFavorite(item);
+    }
+  };
+
   useEffect(() => {
-    setFavorites(store.starWarsFavorites);
-  }, [store.starWarsFavorites]);
+    setFavorites(store.userFavorites);
+  }, [store.userFavorites]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -35,49 +60,84 @@ export const Navbar = () => {
             style={{ width: "100px" }}
           ></img>
         </Link>
-        <div className="ml-auto">
-          <div className="dropdown" ref={dropdownRef}>
-            <button
-              className="btn btn-primary dropdown-toggle"
-              type="button"
-              onClick={(e) => {
-                const dropdownMenu = e.currentTarget.nextElementSibling;
-                dropdownMenu.classList.toggle("show");
-              }}
-            >
-              Favorites
-              <span className="badge text-bg-secondary">
-                {favorites.length}
-              </span>
+        {store.userLogin ? (
+          <></>
+        ) : (
+          <Link to="/login">
+            <button type="button" className="btn btn-primary">
+              Login
             </button>
-            <ul className="dropdown-menu">
-              {favorites && favorites.length > 0 ? (
-                <>
-                  {favorites.map((item, index) => {
-                    return (
-                      <li
-                        key={index}
-                        className="dropdown-item d-flex justify-content-between align-items-center"
-                      >
-                        <Link to={item.url + item.uid} className="item-name">
-                          <span className="item-name">{item.name}</span>
-                        </Link>
-                        <i
-                          className="btn fa-solid fa-trash-can fa-lg"
-                          onClick={() => {
-                            actions.removeFavorite(index);
-                          }}
-                        ></i>
-                      </li>
-                    );
-                  })}
-                </>
-              ) : (
-                <>empty</>
-              )}
-            </ul>
+          </Link>
+        )}
+        {store.userLogin ? (
+          <></>
+        ) : (
+          <Link to="/register">
+            <button type="button" className="btn btn-success">
+              Register
+            </button>
+          </Link>
+        )}
+        {store.userLogin ? (
+          <button
+            type="button"
+            className="btn btn-danger"
+            onClick={(e) => {
+              actions.logout();
+            }}
+          >
+            Logout
+          </button>
+        ) : (
+          <></>
+        )}
+        {store.userLogin ? (
+          <div className="ml-auto">
+            <div className="dropdown" ref={dropdownRef}>
+              <button
+                className="btn btn-primary dropdown-toggle"
+                type="button"
+                onClick={(e) => {
+                  const dropdownMenu = e.currentTarget.nextElementSibling;
+                  dropdownMenu.classList.toggle("show");
+                }}
+              >
+                Favorites
+                <span className="badge text-bg-secondary">
+                  {favorites.length}
+                </span>
+              </button>
+              <ul className="dropdown-menu">
+                {favorites && favorites.length > 0 ? (
+                  <>
+                    {favorites.map((item, index) => {
+                      return (
+                        <li
+                          key={index}
+                          className="dropdown-item d-flex justify-content-between align-items-center"
+                        >
+                          <Link to={getUserLink(item)} className="item-name">
+                            <span className="item-name">{item.name}</span>
+                          </Link>
+                          <i
+                            className="btn fa-solid fa-trash-can fa-lg"
+                            onClick={() => {
+                              removeFavorite(item);
+                            }}
+                          ></i>
+                        </li>
+                      );
+                    })}
+                  </>
+                ) : (
+                  <>empty</>
+                )}
+              </ul>
+            </div>
           </div>
-        </div>
+        ) : (
+          <></>
+        )}
       </div>
     </nav>
   );
